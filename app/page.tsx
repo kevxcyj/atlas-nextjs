@@ -19,7 +19,7 @@ export default function Page() {
             <div className="flex flex-col gap-2 min-[400px]:flex-row">
               <form
                 action={async () => {
-                  "user server";
+                  "use server";
                   await signIn("default", { redirectTo: "/ui" });
                   }}
               >
