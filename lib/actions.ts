@@ -3,6 +3,7 @@
 
 import { revalidatePath } from "next/cache";
 import { insertTopic } from "./data";
+import { insertQuestion, incrementVotes } from "./data";
 import { redirect } from "next/navigation";
 
 export async function addTopic(data: FormData) {
