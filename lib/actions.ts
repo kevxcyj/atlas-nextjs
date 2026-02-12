@@ -3,7 +3,7 @@
 
 import { revalidatePath } from "next/cache";
 import { insertTopic } from "./data";
-import { insertQuestion, incrementVotes } from "./data";
+import { insertQuestion, incrementVotes, insertAnswer, markAnswerAsAccepted } from "./data";
 import { redirect } from "next/navigation";
 
 export async function addTopic(data: FormData) {
@@ -42,5 +42,35 @@ export async function addVote(data: FormData) {
   } catch (error) {
     console.error("Database Error:", error);
     throw new Error("Failed to add vote.");
+  }
+}
+
+export async function addAnswer(formData: FormData) {
+  try {
+    const questionId = formData.get("question_id") as string;
+    
+    await insertAnswer({
+      answer: formData.get("answer") as string,
+      question_id: questionId,
+    });
+    
+    revalidatePath(`/ui/questions/${questionId}`);
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to add answer.");
+  }
+}
+
+export async function markAnswer(formData: FormData) {
+  try {
+    const questionId = formData.get("question_id") as string;
+    const answerId = formData.get("answer_id") as string;
+    
+    await markAnswerAsAccepted(questionId, answerId);
+    
+    revalidatePath(`/ui/questions/${questionId}`);
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to mark answer.");
   }
 }

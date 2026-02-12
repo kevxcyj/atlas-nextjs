@@ -1,8 +1,10 @@
 import { PaperAirplaneIcon } from "@heroicons/react/24/outline";
+import { addAnswer } from "@/lib/actions";
 
-export default function AnswerForm() {
+export default function AnswerForm({ questionId }: { questionId: string }) {
   return (
-    <form className="relative my-8">
+    <form className="relative my-8" action={addAnswer}>
+      <input type="hidden" name="question_id" value={questionId} />
       <div className="flex flex-row gap-2">
         <textarea
           name="answer"
