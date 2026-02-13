@@ -12,6 +12,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     buttonText: "#ffffff",
   },
   providers: [
+    GitHub, //
     Credentials({
       credentials: {
         email: {
