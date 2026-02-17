@@ -12,7 +12,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     buttonText: "#ffffff",
   },
   providers: [
-    GitHub, //
+    GitHub({
+      clientId: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET,
+    }),
     Credentials({
       credentials: {
         email: {
